@@ -1,6 +1,5 @@
 LICENSE.txt
 README.md
-setup.cfg
 setup.py
 flask_protobuf/__init__.py
 flask_protobuf/extension.py

@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: flask-protobuf
-Version: 0.1.1
+Version: 0.1.3
 Summary: Flask-Protobuf is a Python package that provides integration between Flask and Protocol Buffers (protobuf). It allows you to easily handle incoming protobuf messages in your Flask application.
 Home-page: https://github.com/Mackhintoshi/Flask-Protobuf
 Author: Jerick Gutierrez
