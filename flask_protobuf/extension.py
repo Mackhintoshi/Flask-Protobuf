@@ -16,7 +16,6 @@ class FlaskProtobuf:
             self.parse_to_dict = kwargs.get('parse_dict',False) 
             self.strict_message_validation = kwargs.get('strict_message_validation',False)
         else:
-            #Raise error
             raise Exception("Flask app not found. Please pass a Flask app to the constructor")
 
     def init_app(self, app):
@@ -26,18 +25,13 @@ class FlaskProtobuf:
         return MessageToDict(message)
     
     def __create_protobuf_guide(self,message):
-        '''
-        The function returns a message that the message received was not expected.
-        Also returns all the fields in the message and their types
-        '''
+
         response_message= {
             "message":"The message received was not the expected message in the protobuf decorator",
             "expxected_message":message.DESCRIPTOR.name,
             "fields":{}
         }
-        #iterate through the fields in the message
         for field in message.DESCRIPTOR.fields:
-            #return the name of the field and the type name
             response_message["fields"][field.name] = self.__field_type_to_string(field.type)
             
         return response_message
@@ -47,7 +41,7 @@ class FlaskProtobuf:
         checks if the message received is the expected message.
         If the parsing from binary fails, the message becomes empty, which we can use to check if the message is valid
         NOTE: This does not fully validate the content of the message just yet. And is not a replacement for a full validation
-        this is an experimental feature and by default is turned off. To turn it on, pass strict_message_validation=True to the decorator
+        this is an EXPERIMENTAL feature and by default is turned off. To turn it on, pass strict_message_validation=True to the decorator
         Turning this on enables this behavior for now:
         1. If the message expected is a repeated field, and the length of the field is 0, the message is considered invalid
         '''
@@ -114,9 +108,7 @@ class FlaskProtobuf:
                     #the behavior can be overriden by passing instance_parse_to_dict=False to the decorator
                     #when the global is set to False, the behavior can be overriden by passing instance_parse_to_dict=True to the decorator
                     request.data = self.__parse_protobuf_to_dict(d)
-                # Call the original view function
-
-                #if there was an exception, return the guide to the user
+                
                 if(exception_message):
                     return jsonify(exception_message),500
 
